@@ -7,7 +7,6 @@ import { SignupValidation } from "@/lib/validation"
 import { z } from "zod"
 import Loader from "@/components/shared/Loader"
 import { Link , useNavigate} from "react-router-dom"
-import { createUserAccount } from "@/lib/appwrite/api"
 import { useToast } from "@/components/ui/use-toast"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
@@ -16,9 +15,9 @@ import { useUserContext } from "@/context/AuthContext"
 const SignupForm = () => {
         const { toast } = useToast();
         const navigate = useNavigate();
-        const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+        const { checkAuthUser } = useUserContext();
         const {mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
-        const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
+        const { mutateAsync: signInAccount } = useSignInAccount();
         const form = useForm<z.infer<typeof SignupValidation>>({
             resolver: zodResolver(SignupValidation),
             defaultValues: {
@@ -55,7 +54,7 @@ const SignupForm = () => {
     return (
             <Form {...form}>
                 <div className="sm:w-420 flex-center flex-col">
-                    <img src="/assets/images/logo.svg"/>
+                    <img src="/src/logos/logo.png"/>
                     <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a New Account</h2>
                     <p className="text-light-3 small-medium md:base-regular mt-2">Please Enter Your Details</p>
                 
